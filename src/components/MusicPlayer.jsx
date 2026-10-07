@@ -1,36 +1,43 @@
 import { useEffect, useRef, useState } from 'react';
 import config from '../config';
 
+const BASE = import.meta.env.BASE_URL;
+
 export default function MusicPlayer() {
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [hasFile, setHasFile] = useState(false);
 
   useEffect(() => {
-    if (config.MUSIC_FILE) {
-      setHasFile(true);
-      const audio = new Audio(config.MUSIC_FILE);
-      audio.loop = true;
-      audio.volume = 0.35;
-      audioRef.current = audio;
-    }
+    if (!config.MUSIC_FILE) return; // no music configured — show nothing
+
+    const src = `${BASE}${config.MUSIC_FILE.replace(/^\//, '')}`;
+    const audio = new Audio(src);
+    audio.loop = true;
+    audio.volume = 0.35;
+    audioRef.current = audio;
+    setHasFile(true);
+
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
+      audio.pause();
+      audioRef.current = null;
     };
   }, []);
 
   if (!hasFile) return null;
 
   const toggle = () => {
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
     if (playing) {
-      audioRef.current.pause();
+      audio.pause();
       setPlaying(false);
     } else {
-      audioRef.current.play().then(() => setPlaying(true)).catch(() => {});
+      audio.play()
+        .then(() => setPlaying(true))
+        .catch(() => {
+          // Browser blocked autoplay — user must interact first; just ignore
+        });
     }
   };
 

@@ -1,13 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// ⚠️ IMPORTANT FOR GITHUB PAGES:
-// Change the base to match your GitHub repository name.
-// Example: if your repo is "https://github.com/yourname/birthday-website"
-// Set base to: '/birthday-website/'
-// If deploying to a custom domain or root, set base to: '/'
+// The base path is set via the VITE_BASE_URL environment variable.
+// - Local dev / Netlify / Vercel: base defaults to '/'
+// - GitHub Pages: the CI workflow sets VITE_BASE_URL='/birthday-love-website/'
+//
+// If you ever rename the repo, update VITE_BASE_URL in .github/workflows/deploy.yml
 
 export default defineConfig({
   plugins: [react()],
-  base: '/birthday-love-website/', // ✅ Matches repo: dhruv0828/birthday-love-website
+  base: process.env.VITE_BASE_URL || '/',
 })
