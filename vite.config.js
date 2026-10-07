@@ -9,5 +9,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/birthday-website/', // 👈 Change this to your repository name
+  base: '/birthday-love-website/', // ✅ Matches repo: dhruv0828/birthday-love-website
 })

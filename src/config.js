@@ -6,12 +6,12 @@
 const config = {
   // --- Names ---
   // GIRLFRIEND_NAME: Leave empty ("") if you don't want to use her name
-  GIRLFRIEND_NAME: "",
-  MY_NAME: "",
+  GIRLFRIEND_NAME: "Kanika",
+  MY_NAME: "Dhruv",
 
   // --- Relationship Details ---
   RELATIONSHIP_YEARS: 2,
-  BIRTHDAY_DATE: "", // e.g. "October 8" — shown on the birthday section
+  BIRTHDAY_DATE: "October 8", // e.g. "October 8" — shown on the birthday section
 
   // --- Music ---
   // Place your music file in /public/audio/ folder
